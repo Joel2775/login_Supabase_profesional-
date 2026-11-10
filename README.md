@@ -14,3 +14,7 @@ Aplicación móvil con Expo Router, TypeScript y autenticación de Supabase.
 6. Ejecuta `npx expo start`. Para probar OAuth en un dispositivo, usa una development build con el scheme `loginprofesional` declarado en `app.json`.
 
 El cliente Supabase persiste la sesión mediante AsyncStorage y utiliza PKCE para OAuth y recuperación de contraseña. El flujo requiere que las URLs de redirección registradas en Supabase coincidan con las que usa la aplicación.
+
+## Migraciones de la base académica
+
+Los scripts versionados están en `supabase/migrations/` y se ejecutan en orden numérico (`001` a `005`). El usuario reporta que ya los ejecutó en su proyecto Supabase; el repositorio no tiene una verificación independiente del estado remoto. Comprueba en Supabase las tablas, políticas RLS y función RPC antes de considerarlas verificadas.

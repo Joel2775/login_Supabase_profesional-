@@ -2,6 +2,7 @@ import { Platform } from "react-native";
 import * as Linking from "expo-linking";
 import * as WebBrowser from "expo-web-browser";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import type { Database } from "@/core/supabase/database.types";
 import type { AuthUser } from "@/domain/entities/auth-user";
 import type { AuthRepository } from "@/domain/repositories/auth-repository";
 
@@ -15,7 +16,7 @@ function toAuthUser(user: {
 export class SupabaseAuthRepository implements AuthRepository {
   private readonly callbackPromises = new Map<string, Promise<void>>();
 
-  constructor(private readonly supabase: SupabaseClient) {}
+  constructor(private readonly supabase: SupabaseClient<Database>) {}
 
   async signIn(email: string, password: string): Promise<AuthUser> {
     const { data, error } = await this.supabase.auth.signInWithPassword({

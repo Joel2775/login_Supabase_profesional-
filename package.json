@@ -39,6 +39,8 @@
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
+    "test:students": "node --test tests/students-crud.test.cjs",
+    "test:courses": "node --test tests/courses-crud.test.cjs",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",

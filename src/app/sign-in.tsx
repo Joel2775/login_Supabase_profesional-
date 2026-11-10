@@ -1,4 +1,4 @@
-import { Link } from "expo-router";
+import { Link, Redirect } from "expo-router";
 import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import {
@@ -15,11 +15,13 @@ function errorMessage(error: unknown): string {
 }
 
 export default function SignInScreen() {
-  const { configurationError, signIn, signInWithGoogle } = useAuth();
+  const { configurationError, signIn, signInWithGoogle, user } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState<"email" | "google" | null>(null);
   const [message, setMessage] = useState<string | null>(configurationError);
+
+  if (user) return <Redirect href="/home" />;
 
   const submit = async () => {
     if (!isValidEmail(email.trim()) || !password) {
