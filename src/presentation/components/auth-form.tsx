@@ -1,13 +1,12 @@
 import type { ReactNode } from "react";
 import {
-  ActivityIndicator,
   Pressable,
-  StyleSheet,
   Text,
   TextInput,
   View,
   type TextInputProps,
 } from "react-native";
+import { LottieState } from "./lottie-state";
 
 interface AuthFieldProps extends TextInputProps {
   label: string;
@@ -15,12 +14,12 @@ interface AuthFieldProps extends TextInputProps {
 
 export function AuthField({ label, ...inputProps }: AuthFieldProps) {
   return (
-    <View style={styles.field}>
-      <Text style={styles.label}>{label}</Text>
+    <View className="mb-4">
+      <Text className="mb-2 text-sm font-bold text-water-700">{label}</Text>
       <TextInput
         autoCapitalize="none"
-        placeholderTextColor="#9aa3b5"
-        style={styles.input}
+        placeholderTextColor="#94a3b8"
+        className="min-h-14 rounded-2xl border border-water-100 bg-water-50 px-4 text-base text-water-700"
         {...inputProps}
       />
     </View>
@@ -49,19 +48,22 @@ export function AuthButton({
       accessibilityRole="button"
       disabled={disabled || loading}
       onPress={onPress}
-      style={({ pressed }) => [
-        styles.button,
-        secondary && styles.secondaryButton,
-        pressed && styles.pressed,
-        (disabled || loading) && styles.disabled,
-      ]}
+      className={`mt-2 min-h-14 flex-row items-center justify-center gap-2 rounded-2xl px-4 shadow-md shadow-blue-900/10 active:opacity-80 ${
+        secondary
+          ? "border border-water-100 bg-white"
+          : "bg-action"
+      } ${(disabled || loading) ? "opacity-55" : ""}`}
     >
       {loading ? (
-        <ActivityIndicator color={secondary ? "#263553" : "#ffffff"} />
+        <LottieState type="loading" size={30} />
       ) : (
         <>
           {icon}
-          <Text style={[styles.buttonText, secondary && styles.secondaryText]}>
+          <Text
+            className={`text-base font-bold ${
+              secondary ? "text-water-700" : "text-white"
+            }`}
+          >
             {title}
           </Text>
         </>
@@ -80,62 +82,18 @@ export function AuthMessage({
   return (
     <View
       accessibilityRole="alert"
-      style={[
-        styles.message,
-        kind === "success" && styles.successMessage,
-        kind === "info" && styles.infoMessage,
-      ]}
+      className={`mb-4 flex-row items-center gap-2 rounded-2xl border px-3 py-2 ${
+        kind === "success"
+          ? "border-emerald-100 bg-emerald-50"
+          : kind === "info"
+            ? "border-water-100 bg-water-50"
+            : "border-red-100 bg-red-50"
+      }`}
     >
-      <Text style={styles.messageText}>{message}</Text>
+      {kind !== "info" ? (
+        <LottieState type={kind === "success" ? "success" : "error"} size={30} />
+      ) : null}
+      <Text className="flex-1 text-sm leading-5 text-water-700">{message}</Text>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  field: { marginBottom: 17 },
-  label: {
-    color: "#263553",
-    fontSize: 13,
-    fontWeight: "600",
-    marginBottom: 8,
-  },
-  input: {
-    minHeight: 52,
-    paddingHorizontal: 15,
-    borderWidth: 1,
-    borderColor: "#dce1eb",
-    borderRadius: 12,
-    color: "#172033",
-    fontSize: 15,
-    backgroundColor: "#ffffff",
-  },
-  button: {
-    minHeight: 52,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 10,
-    paddingHorizontal: 16,
-    borderRadius: 12,
-    backgroundColor: "#3157d5",
-    marginTop: 6,
-  },
-  secondaryButton: {
-    backgroundColor: "#ffffff",
-    borderColor: "#dce1eb",
-    borderWidth: 1,
-  },
-  buttonText: { color: "#ffffff", fontWeight: "700", fontSize: 15 },
-  secondaryText: { color: "#263553" },
-  pressed: { opacity: 0.82 },
-  disabled: { opacity: 0.6 },
-  message: {
-    padding: 12,
-    borderRadius: 10,
-    backgroundColor: "#fff0f0",
-    marginBottom: 16,
-  },
-  successMessage: { backgroundColor: "#eaf8ef" },
-  infoMessage: { backgroundColor: "#edf2ff" },
-  messageText: { color: "#35415a", fontSize: 13, lineHeight: 19 },
-});

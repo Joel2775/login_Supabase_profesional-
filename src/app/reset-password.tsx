@@ -1,6 +1,6 @@
 import { Link, useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { StyleSheet, Text } from "react-native";
+import { Text } from "react-native";
 import {
   AuthButton,
   AuthField,
@@ -70,8 +70,10 @@ export default function ResetPasswordScreen() {
         title="Choose a new password"
         subtitle="Your new password must be at least 6 characters long."
         footer={
-          <Text style={styles.footerText}>
-            <Link href="/sign-in" style={styles.link}>Back to sign in</Link>
+          <Text className="text-center text-sm">
+            <Link href="/sign-in" className="font-extrabold text-action">
+              Back to sign in
+            </Link>
           </Text>
         }
       >
@@ -117,8 +119,13 @@ export default function ResetPasswordScreen() {
       title="Verifying your link"
       subtitle="Please wait while we validate your password reset link."
       footer={
-        <Text style={styles.footerText}>
-          <Link href="/forgot-password" style={styles.link}>Request another link</Link>
+        <Text className="text-center text-sm">
+          <Link
+            href="/forgot-password"
+            className="font-extrabold text-action"
+          >
+            Request another link
+          </Link>
         </Text>
       }
     >
@@ -138,8 +145,3 @@ export default function ResetPasswordScreen() {
     </AuthScreen>
   );
 }
-
-const styles = StyleSheet.create({
-  footerText: { color: "#68738a", textAlign: "center", fontSize: 14 },
-  link: { color: "#3157d5", fontWeight: "700" },
-});

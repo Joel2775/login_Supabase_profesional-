@@ -3,7 +3,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  StyleSheet,
   Text,
   View,
 } from "react-native";
@@ -18,58 +17,43 @@ export function AuthScreen({ title, subtitle, children, footer }: AuthScreenProp
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : undefined}
-      style={styles.flex}
+      className="flex-1 bg-water-50"
     >
       <ScrollView
-        contentContainerStyle={styles.container}
+        className="flex-1"
+        contentContainerStyle={{
+          flexGrow: 1,
+          justifyContent: "center",
+          paddingHorizontal: 24,
+          paddingVertical: 36,
+        }}
         keyboardShouldPersistTaps="handled"
       >
-        <View style={styles.card}>
-          <Text style={styles.eyebrow}>CUENTA PERSONAL</Text>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.subtitle}>{subtitle}</Text>
+        <View className="w-full max-w-md self-center rounded-[32px] border border-white bg-white p-7 shadow-lg shadow-blue-900/10">
+          <View className="mb-6 flex-row items-center gap-3">
+            <View className="h-12 w-12 items-center justify-center rounded-2xl bg-water-100">
+              <Text className="text-2xl font-bold text-water-700">A</Text>
+            </View>
+            <View>
+              <Text className="text-xs font-extrabold tracking-[2px] text-water-700">
+                PORTAL SEGURO
+              </Text>
+              <Text className="mt-1 text-xs text-muted">Gestión de cuenta</Text>
+            </View>
+          </View>
+          <Text className="text-3xl font-extrabold text-water-700">{title}</Text>
+          <Text className="mb-7 mt-2 text-base leading-6 text-muted">
+            {subtitle}
+          </Text>
           {children}
-          {footer ? <View style={styles.footer}>{footer}</View> : null}
+          {footer ? (
+            <View className="mt-6 items-center">
+              <View className="mb-3 h-px w-full bg-water-100" />
+              {footer}
+            </View>
+          ) : null}
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );
 }
-
-const styles = StyleSheet.create({
-  flex: { flex: 1, backgroundColor: "#f4f6fb" },
-  container: {
-    flexGrow: 1,
-    justifyContent: "center",
-    padding: 24,
-  },
-  card: {
-    width: "100%",
-    maxWidth: 460,
-    alignSelf: "center",
-    padding: 28,
-    borderRadius: 24,
-    backgroundColor: "#ffffff",
-    shadowColor: "#1d2b50",
-    shadowOpacity: 0.08,
-    shadowRadius: 24,
-    shadowOffset: { width: 0, height: 12 },
-    elevation: 3,
-  },
-  eyebrow: {
-    color: "#3157d5",
-    fontSize: 11,
-    fontWeight: "700",
-    letterSpacing: 1.8,
-    marginBottom: 12,
-  },
-  title: { color: "#172033", fontSize: 30, fontWeight: "700" },
-  subtitle: {
-    color: "#68738a",
-    fontSize: 15,
-    lineHeight: 22,
-    marginTop: 8,
-    marginBottom: 26,
-  },
-  footer: { marginTop: 22 },
-});

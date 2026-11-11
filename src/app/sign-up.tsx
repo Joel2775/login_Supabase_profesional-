@@ -1,6 +1,6 @@
 import { Link, Redirect } from "expo-router";
 import { useState } from "react";
-import { StyleSheet, Text } from "react-native";
+import { Text } from "react-native";
 import {
   AuthButton,
   AuthField,
@@ -56,8 +56,11 @@ export default function SignUpScreen() {
       title="Create account"
       subtitle="Use your email and a secure password to get started."
       footer={
-        <Text style={styles.footerText}>
-          Already have an account? <Link href="/sign-in" style={styles.link}>Sign in</Link>
+        <Text className="text-center text-sm text-muted">
+          Already have an account?{" "}
+          <Link href="/sign-in" className="font-extrabold text-action">
+            Sign in
+          </Link>
         </Text>
       }
     >
@@ -104,8 +107,3 @@ export default function SignUpScreen() {
     </AuthScreen>
   );
 }
-
-const styles = StyleSheet.create({
-  footerText: { color: "#68738a", textAlign: "center", fontSize: 14 },
-  link: { color: "#3157d5", fontWeight: "700" },
-});

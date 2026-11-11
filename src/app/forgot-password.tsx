@@ -1,7 +1,7 @@
 import { Link } from "expo-router";
 import * as Linking from "expo-linking";
 import { useState } from "react";
-import { StyleSheet, Text } from "react-native";
+import { Text } from "react-native";
 import {
   AuthButton,
   AuthField,
@@ -47,8 +47,11 @@ export default function ForgotPasswordScreen() {
       title="Reset password"
       subtitle="We will email you a secure link to choose a new password."
       footer={
-        <Text style={styles.footerText}>
-          Remembered it? <Link href="/sign-in" style={styles.link}>Back to sign in</Link>
+        <Text className="text-center text-sm text-muted">
+          Remembered it?{" "}
+          <Link href="/sign-in" className="font-extrabold text-action">
+            Back to sign in
+          </Link>
         </Text>
       }
     >
@@ -76,8 +79,3 @@ export default function ForgotPasswordScreen() {
     </AuthScreen>
   );
 }
-
-const styles = StyleSheet.create({
-  footerText: { color: "#68738a", textAlign: "center", fontSize: 14 },
-  link: { color: "#3157d5", fontWeight: "700" },
-});

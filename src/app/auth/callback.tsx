@@ -43,8 +43,10 @@ export default function AuthCallbackScreen() {
       title="Completing sign in"
       subtitle="You will be redirected as soon as your account is ready."
       footer={
-        <Text>
-          <Link href="/sign-in">Return to sign in</Link>
+        <Text className="text-center text-sm">
+          <Link href="/sign-in" className="font-extrabold text-action">
+            Return to sign in
+          </Link>
         </Text>
       }
     >

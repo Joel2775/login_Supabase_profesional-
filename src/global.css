@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@import "uniwind";
+
+@theme {
+  --color-water-50: #f3f6fc;
+  --color-water-100: #e5f0f8;
+  --color-water-200: #c9e2f1;
+  --color-water-500: #117dbf;
+  --color-water-700: #263973;
+  --color-action: #0511f2;
+  --color-alert: #d92534;
+  --color-gold: #d9b64e;
+  --color-muted: #64748b;
+}

@@ -1,6 +1,6 @@
 import { Link, Redirect } from "expo-router";
 import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import {
   AuthButton,
   AuthField,
@@ -57,8 +57,11 @@ export default function SignInScreen() {
       title="Welcome back"
       subtitle="Sign in to continue to your account."
       footer={
-        <Text style={styles.footerText}>
-          New here? <Link href="/sign-up" style={styles.link}>Create an account</Link>
+        <Text className="text-center text-sm text-muted">
+          New here?{" "}
+          <Link href="/sign-up" className="font-extrabold text-action">
+            Create an account
+          </Link>
         </Text>
       }
     >
@@ -85,8 +88,8 @@ export default function SignInScreen() {
         placeholder="Your password"
         onSubmitEditing={() => void submit()}
       />
-      <View style={styles.forgot}>
-        <Link href="/forgot-password" style={styles.link}>
+      <View className="mb-3 mt-1 items-end">
+        <Link href="/forgot-password" className="font-bold text-action">
           Forgot password?
         </Link>
       </View>
@@ -96,10 +99,10 @@ export default function SignInScreen() {
         loading={busy === "email"}
         disabled={busy !== null}
       />
-      <View style={styles.divider}>
-        <View style={styles.dividerLine} />
-        <Text style={styles.dividerText}>OR</Text>
-        <View style={styles.dividerLine} />
+      <View className="my-5 flex-row items-center gap-3">
+        <View className="h-px flex-1 bg-water-100" />
+        <Text className="text-xs font-bold tracking-widest text-muted">OR</Text>
+        <View className="h-px flex-1 bg-water-100" />
       </View>
       <AuthButton
         title="Continue with Google"
@@ -107,23 +110,10 @@ export default function SignInScreen() {
         loading={busy === "google"}
         disabled={busy !== null}
         secondary
-        icon={<Text style={styles.googleIcon}>G</Text>}
+        icon={
+          <Text className="text-lg font-extrabold text-[#4285F4]">G</Text>
+        }
       />
     </AuthScreen>
   );
 }
-
-const styles = StyleSheet.create({
-  footerText: { color: "#68738a", textAlign: "center", fontSize: 14 },
-  link: { color: "#3157d5", fontWeight: "700" },
-  forgot: { alignItems: "flex-end", marginTop: -4, marginBottom: 16 },
-  divider: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 12,
-    marginVertical: 20,
-  },
-  dividerLine: { height: 1, flex: 1, backgroundColor: "#e7eaf1" },
-  dividerText: { color: "#919bad", fontSize: 11, fontWeight: "700" },
-  googleIcon: { color: "#4285f4", fontSize: 17, fontWeight: "700" },
-});

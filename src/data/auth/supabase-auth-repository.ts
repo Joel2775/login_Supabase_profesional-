@@ -43,6 +43,9 @@ export class SupabaseAuthRepository implements AuthRepository {
       options: {
         redirectTo,
         skipBrowserRedirect: Platform.OS !== "web",
+        queryParams: {
+          prompt: "select_account",
+        },
       },
     });
 

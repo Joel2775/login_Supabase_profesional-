@@ -9,6 +9,7 @@ import { GetCourses } from "@/domain/use-cases/courses/get-courses";
 import { UpdateCourse } from "@/domain/use-cases/courses/update-course";
 import { EnrollStudent } from "@/domain/use-cases/enrollments/enroll-student";
 import { GetCourseStudents } from "@/domain/use-cases/enrollments/get-course-students";
+import { GetStudentEnrollments } from "@/domain/use-cases/enrollments/get-student-enrollments";
 import { GetStudentCourses } from "@/domain/use-cases/enrollments/get-student-courses";
 import { RemoveEnrollment } from "@/domain/use-cases/enrollments/remove-enrollment";
 import { CreateStudent } from "@/domain/use-cases/students/create-student";
@@ -40,6 +41,7 @@ export function createAcademicDependencies() {
     },
     enrollments: {
       enroll: new EnrollStudent(enrollmentRepository),
+      getStudentEnrollments: new GetStudentEnrollments(enrollmentRepository),
       getStudentCourses: new GetStudentCourses(enrollmentRepository),
       getCourseStudents: new GetCourseStudents(enrollmentRepository),
       remove: new RemoveEnrollment(enrollmentRepository),

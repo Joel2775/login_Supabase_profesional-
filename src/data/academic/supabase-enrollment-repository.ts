@@ -86,6 +86,43 @@ export class SupabaseEnrollmentRepository implements EnrollmentRepository {
     return data.map(mapCourse);
   }
 
+  async getStudentEnrollments(studentId: string): Promise<Enrollment[]> {
+    const userId = await requireCurrentUserId(this.supabase);
+    const { data: student, error: studentError } = await this.supabase
+      .from("students")
+      .select("id")
+      .eq("id", studentId)
+      .eq("user_id", userId)
+      .maybeSingle();
+
+    if (studentError) {
+      throwSupabaseError(
+        studentError,
+        "No se pudo verificar el estudiante",
+        "el estudiante",
+      );
+    }
+    if (!student) {
+      throw new Error("El estudiante no existe o no está disponible.");
+    }
+
+    const { data, error } = await this.supabase
+      .from("enrollments")
+      .select("id,user_id,student_id,course_id,enrolled_at")
+      .eq("student_id", studentId)
+      .eq("user_id", userId)
+      .order("enrolled_at", { ascending: false });
+
+    if (error) {
+      throwSupabaseError(
+        error,
+        "No se pudieron consultar las inscripciones del estudiante",
+        "las inscripciones",
+      );
+    }
+    return data.map(mapEnrollment);
+  }
+
   async getCourseStudents(courseId: string): Promise<Student[]> {
     const userId = await requireCurrentUserId(this.supabase);
     const { data: course, error: courseError } = await this.supabase
